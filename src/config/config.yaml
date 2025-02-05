@@ -1,0 +1,33 @@
+environment: development
+
+database:
+  host: localhost
+  port: 27017
+  database: port_delays_monitor
+  username: null
+  password: null
+  auth_source: null
+
+verification:
+  min_reports_required: 2
+  max_duration_variance: 3600  # 1 hour in seconds
+  evidence_expiry: 86400      # 24 hours in seconds
+  verification_timeout: 1800   # 30 minutes in seconds
+  auto_verify_threshold: 0.8
+
+analytics:
+  analysis_window: 2592000    # 30 days in seconds
+  min_data_points: 10
+  confidence_threshold: 0.7
+  pattern_detection_window: 604800  # 7 days in seconds
+  cache_duration: 3600        # 1 hour in seconds
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  cors_origins: ["*"]
+  rate_limit: 100
+  rate_limit_period: 60
+
+logging_level: "INFO"

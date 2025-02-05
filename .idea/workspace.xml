@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="88ce0d07-e3c8-4e68-99fa-6f672b608b55" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/port_delays_monitor.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scheduler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/analytics/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/analytics/delay_analyzer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/port_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/vessel_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data_collection/analyze_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/database/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/database/db_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/delay_record.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/port.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/types.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/vessel_call.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scrapers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scrapers/base_scraper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scrapers/port_scraper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scrapers/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scrapers/utils/vessel_types.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/verification/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/verification/delay_verifier.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test_scraper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2sWw0qZ9PupUDucfQ71BXfzmXpD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests in test_scraper.py.executor": "Run",
+    "Python.analyze_data.executor": "Run",
+    "Python.csv_viewer.executor": "Run",
+    "Python.port_scraper.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/stkam/PycharmProjects/port_delays_monitor",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-PY-243.23654.177" />
+        <option value="bundled-python-sdk-91d3a02ef49d-43b77aa2d136-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.23654.177" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="88ce0d07-e3c8-4e68-99fa-6f672b608b55" name="Changes" comment="" />
+      <created>1738584419618</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738584419618</updated>
+      <workItem from="1738584421114" duration="4869000" />
+      <workItem from="1738589498714" duration="658000" />
+      <workItem from="1738590793320" duration="7158000" />
+      <workItem from="1738599389091" duration="4650000" />
+      <workItem from="1738615132350" duration="8899000" />
+      <workItem from="1738673841256" duration="355000" />
+      <workItem from="1738677456895" duration="1693000" />
+      <workItem from="1738699138001" duration="16668000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/port_delays_monitor$port_scraper.coverage" NAME="port_scraper Coverage Results" MODIFIED="1738708347721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/scrapers" />
+    <SUITE FILE_PATH="coverage/port_delays_monitor$csv_viewer.coverage" NAME="csv_viewer Coverage Results" MODIFIED="1738713381026" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/data_collection" />
+    <SUITE FILE_PATH="coverage/port_delays_monitor$analyze_data.coverage" NAME="analyze_data Coverage Results" MODIFIED="1738709421040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/data_collection" />
+    <SUITE FILE_PATH="coverage/port_delays_monitor$.coverage" NAME=" Coverage Results" MODIFIED="1738714290532" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
