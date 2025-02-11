@@ -131,6 +131,7 @@ python -m src.database.healthcheck```
 
 ### 🔄 Project Structure
 
+```
 .
 ├── src/
 │   ├── analytics/         # Analysis and clustering
@@ -141,6 +142,8 @@ python -m src.database.healthcheck```
 │   └── verification/    # Data verification
 ├── tests/               # Test files
 └── requirements.txt     # Dependencies
+
+```
 
 ## 🛣️ Roadmap (V3)
 
@@ -243,3 +246,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## 📬 Contact
+For inquiries about the maritime data analysis:
+
+LinkedIn: Stavroula Kamini
+
+Email: cruxthestaff@helicondata.com
