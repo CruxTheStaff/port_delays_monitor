@@ -3,15 +3,39 @@
 from datetime import datetime
 import pandas as pd
 from playwright.sync_api import sync_playwright
-from .base_scraper import BaseScraper
-from .utils.vessel_types import VESSEL_TYPES, BASE_URLS
+from src.scrapers.base_scraper import BaseScraper
+from src.scrapers.utils.vessel_types import VESSEL_TYPES, BASE_URLS
 import os
 import time
+import logging
+from tenacity import retry, stop_after_attempt, wait_exponential
+
+# Configure logging
+logger = logging.getLogger(__name__)
+
+class ScrapingError(Exception):
+    """Custom exception for scraping errors"""
+    pass
 
 class PortScraper(BaseScraper):
     def __init__(self):
         super().__init__()
         self.vessel_types = VESSEL_TYPES
+
+    @staticmethod
+    def safe_extract_cell(cell, error_msg):
+        """Safely extract content from a table cell"""
+        try:
+            if not cell:
+                raise ScrapingError("Cell is None")
+            content = cell.text_content().strip()
+            if not content:
+                logger.warning(f"{error_msg}: Empty content")
+                return None
+            return content
+        except Exception as e:
+            logger.error(f"{error_msg}: {str(e)}")
+            return None
 
     # Base methods
     def scrape(self):
@@ -59,7 +83,9 @@ class PortScraper(BaseScraper):
             'icon3': 'passenger',
             'icon4': 'high_speed',
             'icon6': 'tanker',
-            'icon7': 'cargo'
+            'icon7': 'cargo',
+            'icon8': 'tug',
+            'icon9': 'pilot'
         }
 
         for icon_id, vessel_type in icon_types.items():
@@ -128,28 +154,37 @@ class PortScraper(BaseScraper):
         try:
             cells = row.query_selector_all('td')
             if len(cells) < 6:
+                logger.warning("Row has insufficient cells")
                 return None
 
+            # Extract vessel type from image
             img = cells[0].query_selector('img')
             vessel_type = self.get_vessel_type(img.get_attribute('src')) if img else None
-
             if not vessel_type:
+                logger.warning("Could not determine vessel type")
                 return None
 
             data = {
-                'vessel_name': cells[0].text_content().strip(),
+                'vessel_name': self.safe_extract_cell(cells[0], "Error extracting vessel name"),
                 'vessel_type': vessel_type,
-                'arrival': cells[1].text_content().strip(),
-                'dwt': cells[2].text_content().strip(),
-                'grt': cells[3].text_content().strip(),
-                'built': cells[4].text_content().strip(),
-                'size': cells[5].text_content().strip(),
+                'arrival': self.safe_extract_cell(cells[1], "Error extracting arrival time"),
+                'dwt': self.safe_extract_cell(cells[2], "Error extracting DWT"),
+                'grt': self.safe_extract_cell(cells[3], "Error extracting GRT"),
+                'built': self.safe_extract_cell(cells[4], "Error extracting built year"),
+                'size': self.safe_extract_cell(cells[5], "Error extracting size"),
                 'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
+
+            # Validate essential data
+            if not data['vessel_name']:
+                logger.warning("Vessel name is missing")
+                return None
+
+            logger.debug(f"Successfully extracted vessel data: {data['vessel_name']}")
             return data
 
         except Exception as e:
-            print(f"Error extracting data: {e}")
+            logger.error(f"Error extracting vessel data: {str(e)}")
             return None
 
     @staticmethod
@@ -241,25 +276,39 @@ class PortScraper(BaseScraper):
         try:
             cells = row.query_selector_all('td')
             if len(cells) < 3:
+                logger.warning("Row has insufficient cells for expected arrival data")
                 return None
 
+            # Extract vessel type from image
             img = cells[1].query_selector('img')
             vessel_type = self.get_vessel_type(img.get_attribute('src')) if img else None
-
             if not vessel_type:
+                logger.warning("Could not determine vessel type for expected arrival")
+                return None
+
+            # Extract data using safe method
+            mmsi = self.safe_extract_cell(cells[0], "Error extracting MMSI")
+            vessel_name = self.safe_extract_cell(cells[1], "Error extracting vessel name")
+            eta = self.safe_extract_cell(cells[2], "Error extracting ETA")
+
+            # Validate essential data
+            if not all([mmsi, vessel_name, eta]):
+                logger.warning("Missing essential data for expected arrival")
                 return None
 
             data = {
-                'mmsi': cells[0].text_content().strip(),
-                'vessel_name': cells[1].text_content().strip(),
+                'mmsi': mmsi,
+                'vessel_name': vessel_name,
                 'vessel_type': vessel_type,
-                'eta': cells[2].text_content().strip(),
+                'eta': eta,
                 'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
+
+            logger.debug(f"Successfully extracted expected arrival data: {data['vessel_name']}")
             return data
 
         except Exception as e:
-            print(f"Error extracting expected arrival data: {e}")
+            logger.error(f"Error extracting expected arrival data: {str(e)}")
             return None
 
     @staticmethod
@@ -287,94 +336,181 @@ class PortScraper(BaseScraper):
             df.to_csv(filepath, index=False)
             print(f"Updated expected arrivals file with {len(df)} records")
 
-    # Port calls methods
     def scrape_port_calls(self, page):
         """Scrape port activity (arrivals/departures)"""
         calls = []
         page_count = 1
+        total_processed = 0
+        expected_columns = 5  #
 
         try:
-            print("\nStarting port calls scraping...")
+            logger.info("\nStarting port calls scraping...")
 
             while True:
                 # Construct URL for current page
                 current_url = f"{BASE_URLS['port_calls']}&page={page_count}" if page_count > 1 else BASE_URLS[
                     'port_calls']
-                print(f"\nProcessing page {page_count}...")
-                print(f"URL: {current_url}")
+                logger.info(f"\nProcessing page {page_count}...")
+                logger.debug(f"URL: {current_url}")
 
-                # Navigate to page
-                page.goto(current_url)
-                page.wait_for_timeout(3000)
-
-                # Get total number of rows in table
-                table = page.query_selector('table')
-                if table:
-                    rows = table.query_selector_all('tr')
-                    total_rows = len(rows) - 1  # Excluding header
-                    print(f"Found {total_rows} rows in table (excluding header)")
-
-                    if total_rows == 0:  # If no rows found, we've reached the end
-                        print("No rows found, ending scraping")
-                        break
-
-                    for row in rows[1:]:  # Skip header
-                        call_data = self.extract_port_call_data(row)
-                        if call_data:
-                            calls.append(call_data)
-
-                    # Move to next page
-                    page_count += 1
-
-                    # Check if there's a next page by looking for rows
-                    if total_rows < 50:  # Assuming each page has 50 rows when full
-                        print("Last page reached (incomplete page)")
-                        break
-                else:
-                    print("No table found on page!")
+                # Safely navigate to page
+                if not self.safe_navigate(page, current_url):
+                    logger.error(f"Failed to navigate to page {page_count}")
                     break
 
-            print(f"\nPort calls scraping completed:")
-            print(f"Total pages processed: {page_count - 1}")
-            print(f"Total port calls extracted: {len(calls)}")
+                # Validate table structure
+                table = self.validate_table(page, expected_columns)
+                if not table:
+                    logger.error(f"Invalid table structure on page {page_count}")
+                    break
+
+                # Get rows and process
+                rows = table.query_selector_all('tr')
+                total_rows = len(rows) - 1  # Excluding header
+                logger.info(f"Found {total_rows} rows in table (excluding header)")
+
+                if total_rows == 0:
+                    logger.info("No rows found, ending scraping")
+                    break
+
+                # Process rows
+                successful_extractions = 0
+                for row in rows[1:]:  # Skip header
+                    call_data = self.extract_port_call_data(row)
+                    if call_data:
+                        calls.append(call_data)
+                        successful_extractions += 1
+
+                # Update progress
+                total_processed += total_rows
+                self.track_progress(successful_extractions, total_rows, "Port calls")
+
+                # Move to next page
+                page_count += 1
+
+                # Check if there's a next page
+                if total_rows < 50:  # Assuming each page has 50 rows when full
+                    logger.info("Last page reached (incomplete page)")
+                    break
+
+                # Add small delay between pages
+                page.wait_for_timeout(2000)  # 2'' second delay
+
+            # Final statistics
+            logger.info(f"\nPort calls scraping completed:")
+            logger.info(f"Total pages processed: {page_count - 1}")
+            logger.info(f"Total rows processed: {total_processed}")
+            logger.info(f"Successfully extracted calls: {len(calls)}")
+            logger.info(f"Success rate: {(len(calls) / total_processed * 100):.2f}%")
+
             return calls
 
         except Exception as e:
-            print(f"Error in scrape_port_calls: {e}")
+            logger.error(f"Error in scrape_port_calls: {str(e)}")
             return calls
+
+        finally:
+            # Save partial results even if something fails
+            if calls:
+                try:
+                    self.save_port_calls(calls)
+                    logger.info(f"Saved {len(calls)} port call records")
+                except Exception as e:
+                    logger.error(f"Failed to save port calls: {str(e)}")
+            return calls
+
+    @retry(stop=stop_after_attempt(3),
+           wait=wait_exponential(multiplier=1, min=4, max=10))
+    def safe_navigate(self, page, url):
+        """Safely navigate to URL with retry mechanism"""
+        try:
+            page.goto(url)
+            page.wait_for_selector('table', timeout=10000)
+            return True
+        except Exception as e:
+            logger.error(f"Navigation failed: {str(e)}")
+            return False
+
+    @staticmethod
+    def validate_table(page, expected_columns):
+        """Validate table structure before scraping"""
+        try:
+            table = page.query_selector('table')
+            if not table:
+                logger.error("Table not found")
+                return None
+
+            headers = table.query_selector_all('th')
+            if not headers or len(headers) < expected_columns:
+                logger.error(
+                    f"Invalid table structure. Expected {expected_columns} columns, found {len(headers) if headers else 0}")
+                return None
+
+            return table
+        except Exception as e:
+            logger.error(f"Table validation failed: {str(e)}")
+            return None
+
+    @staticmethod
+    def track_progress(extracted_count, total_count, data_type):
+        """Track scraping progress"""
+        progress = (extracted_count / total_count) * 100 if total_count > 0 else 0
+        logger.info(f"{data_type} scraping progress: {progress:.2f}% ({extracted_count}/{total_count})")
 
     def extract_port_call_data(self, row):
         """Extract port call data from table row"""
         try:
             cells = row.query_selector_all('td')
             if len(cells) < 5:
+                logger.warning("Row has insufficient cells for port call data")
                 return None
 
+            # Extract vessel type from image
             vessel_cell = cells[4]
             img = vessel_cell.query_selector('img')
             vessel_type = self.get_vessel_type(img.get_attribute('src')) if img else None
-
             if not vessel_type:
+                logger.warning("Could not determine vessel type for port call")
                 return None
 
-            event_type = cells[1].text_content().strip()
-            if event_type == 'Άφιξη':
-                event_type = 'arrival'
-            elif event_type == 'Αναχώρηση':
-                event_type = 'departure'
+            # Extract event type
+            event_type = self.safe_extract_cell(cells[1], "Error extracting event type")
+            if event_type:
+                event_type = 'arrival' if event_type == 'Άφιξη' else 'departure' if event_type == 'Αναχώρηση' else None
+
+            if not event_type:
+                logger.warning("Invalid event type")
+                return None
+
+            # Extract vessel name (either from link or direct text)
+            vessel_name = None
+            vessel_link = vessel_cell.query_selector('a')
+            if vessel_link:
+                vessel_name = self.safe_extract_cell(vessel_link, "Error extracting vessel name from link")
+            if not vessel_name:
+                vessel_name = self.safe_extract_cell(vessel_cell, "Error extracting vessel name from cell")
+
+            # Extract timestamp
+            timestamp = self.safe_extract_cell(cells[2], "Error extracting timestamp")
+
+            # Validate essential data
+            if not all([vessel_name, timestamp]):
+                logger.warning("Missing essential data for port call")
+                return None
 
             data = {
                 'event_type': event_type,
-                'timestamp': cells[2].text_content().strip(),
-                'vessel_name': vessel_cell.query_selector('a').text_content().strip() if vessel_cell.query_selector(
-                    'a') else vessel_cell.text_content().strip(),
+                'timestamp': timestamp,
+                'vessel_name': vessel_name,
                 'vessel_type': vessel_type,
                 'record_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
+
+            logger.debug(f"Successfully extracted port call data: {data['vessel_name']} - {data['event_type']}")
             return data
 
         except Exception as e:
-            print(f"Error extracting port call data: {e}")
+            logger.error(f"Error extracting port call data: {str(e)}")
             return None
 
     @staticmethod

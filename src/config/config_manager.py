@@ -5,6 +5,8 @@ import os
 from pathlib import Path
 import logging
 from datetime import timedelta
+
+from colorama import Fore, init, Style
 from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
@@ -55,6 +57,15 @@ class APIConfig(BaseModel):
     rate_limit_period: int = 60
 
 
+class LoggingConfig(BaseModel):
+    """Logging configuration settings"""
+    level: str = "INFO"
+    format: str = "%(asctime)s - %(levelname)s - %(message)s"
+    colors: Dict = Field(default_factory=lambda: {
+        "enabled": True,
+        "cluster_colors": ["RED", "YELLOW", "GREEN", "BLUE", "WHITE"]
+    })
+
 class Config(BaseModel):
     """Main configuration"""
     environment: str = "development"
@@ -62,6 +73,7 @@ class Config(BaseModel):
     verification: VerificationConfig
     analytics: AnalyticsConfig
     api: APIConfig
+    logging: LoggingConfig
     logging_level: str = "INFO"
 
 
@@ -74,8 +86,7 @@ class ConfigManager:
     def _get_default_config_path() -> str:
         """Get default configuration file path"""
         return os.path.join(
-            Path(__file__).parent.parent.parent,
-            "config",
+            Path(__file__).parent,  # Αλλαγή εδώ
             "config.yaml"
         )
 
@@ -170,3 +181,40 @@ class ConfigManager:
         except Exception as e:
             logger.error(f"Error exporting configuration: {str(e)}")
             raise
+
+    def setup_logging(self) -> logging.Logger:
+        """Setup logging configuration"""
+        # Initialize colorama if colors are enabled
+        if self.config.logging.colors["enabled"]:
+            init()
+
+        # Configure logging
+        logging.basicConfig(
+            level=getattr(logging, self.config.logging.level),
+            format=self.config.logging.format
+        )
+        return logging.getLogger(__name__)
+
+    def get_cluster_color(self, cluster: int) -> str:
+        """Get color for specific cluster"""
+        colors = self.config.logging.colors["cluster_colors"]
+        return getattr(Fore, colors[cluster]) if cluster < len(colors) else Fore.WHITE
+
+class LoggingConfig(BaseModel):
+    """Logging configuration settings"""
+    level: str = "INFO"
+    format: str = "%(asctime)s - %(levelname)s - %(message)s"
+    colors: Dict = Field(default_factory=lambda: {
+        "enabled": True,
+        "cluster_colors": ["RED", "YELLOW", "GREEN", "BLUE", "WHITE"]
+    })
+
+class Config(BaseModel):
+    """Main configuration"""
+    environment: str = "development"
+    database: DatabaseConfig
+    verification: VerificationConfig
+    analytics: AnalyticsConfig
+    api: APIConfig
+    logging: LoggingConfig  # Add this line
+    logging_level: str = "INFO"

@@ -4,12 +4,21 @@ pymongo==4.11
 pydantic==2.5.1
 python-dotenv==1.0.0
 PyYAML==6.0.1
-pytest==7.4.3
-requests==2.31.0
+pytest==8.3.4
+requests==2.32.3
 python-jose[cryptography]==3.3.0  # for JWT authentication
 passlib[bcrypt]==1.7.4           # for password hashing
-python-multipart==0.0.6          # for form data handling
+python-multipart==0.0.20          # for form data handling
 playwright==1.50.0               # for web scraping
 pandas==2.2.3
 schedule==1.2.2
 numpy==2.2.2
+scipy==1.15.1
+tenacity==9.0.0
+matplotlib==3.10.0
+seaborn==0.13.2
+scikit-learn==1.6.1
+cachetools==5.5.1
+colorama==0.4.6
+kneed==0.8.5
+silhouette==0.0.1a0

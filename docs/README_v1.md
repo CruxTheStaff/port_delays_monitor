@@ -1,6 +1,6 @@
 # Port Activity Monitor
 
-A sophisticated data collection and analysis system designed to monitor vessel movements, delays, and port activities at the Port of Piraeus. This system serves as a data preparation component for advanced fleet management and route optimization applications.
+This system collects, processes and analyzes data from Greek ports to identify patterns of delays and congestion. It is used to optimize ship routes through predictive models.
 
 ## 🚢 Features
 

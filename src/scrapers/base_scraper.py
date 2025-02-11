@@ -8,7 +8,8 @@ class BaseScraper(ABC):
     def __init__(self):
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def setup_browser(self):
+    @staticmethod
+    def setup_browser():
         """Initialize browser"""
         return sync_playwright().start()
 

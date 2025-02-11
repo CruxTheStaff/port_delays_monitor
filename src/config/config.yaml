@@ -31,3 +31,15 @@ api:
   rate_limit_period: 60
 
 logging_level: "INFO"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+  colors:
+    enabled: true
+    cluster_colors:
+      - "RED"    # Cluster 0
+      - "YELLOW" # Cluster 1
+      - "GREEN"  # Cluster 2
+      - "BLUE"   # Cluster 3
+      - "WHITE"  # Cluster 4
