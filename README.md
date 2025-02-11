@@ -14,31 +14,30 @@ End-to-end data pipeline for monitoring 222 Greek ports, combining adaptive scra
 - ML-powered optimization and analysis
 
 ## 🔄 System Architecture
+
 ```mermaid
 flowchart TD
-    subgraph Input[Data Sources]
-        A1[In Port Data] -->|Scraping| B
-        A2[Expected Arrivals] -->|Scraping| B
-        A3[Port Calls] -->|Scraping| B
-        B[Raw Port Data]
+    subgraph Input
+        A[Maritime Website] -->|Scraping| B[Raw Port Data]
     end
 
     subgraph Processing
         B -->|Validation| C[Clean Data]
-        C -->|Store| D1[(MongoDB)]
-        D1 -->|Analysis| D[Port Clusters]
+        C -->|Analysis| D[Port Clusters]
         D -->|Optimization| E[Scraping Schedule]
     end
 
-    subgraph Output[Dynamic Scheduling]
-        E -->|High Activity| F[Cluster 0: 15min]
-        E -->|Medium-High| G[Cluster 1: 30min]
-        E -->|Medium| H[Cluster 2: 1h]
-        E -->|Medium-Low| I[Cluster 3: 2h]
-        E -->|Low Activity| J[Cluster 4: 4h]
+    subgraph Output
+        E -->|Dynamic Intervals| F[Cluster 0: 15min]
+        E -->|Dynamic Intervals| G[Cluster 1: 30min]
+        E -->|Dynamic Intervals| H[Cluster 2: 1h]
+        E -->|Dynamic Intervals| I[Cluster 3: 2h]
+        E -->|Dynamic Intervals| J[Cluster 4: 4h]
     end
 
     F & G & H & I & J -->|Continuous Update| B
+```
+    
 
 ### 🚀 Quick Start
 ## Prerequisites
@@ -47,6 +46,7 @@ MongoDB 4.4+
 Playwright
 
 ##Installation
+
 ```bash
 git clone https://github.com/CruxTheStaff/port_delays_monitor
 cd port-delays-monitor
@@ -56,14 +56,16 @@ source .venv/bin/activate  # Linux/Mac
 .venv\Scripts\activate     # Windows
 
 pip install -r requirements.txt
-playwright install```
+playwright install
+```
 
 ##Configuration
 Create `.env` file:
 ```bash 
 MONGO_URI=mongodb://localhost:27017
 MONGO_DB=port_activity
-SCRAPER_TIMEOUT=300```
+SCRAPER_TIMEOUT=300
+```
 
 ## 🧠 Intelligent Architecture
 
@@ -80,14 +82,15 @@ from src.analytics.ports_clusters import PortClusterAnalyzer
 
 analyzer = PortClusterAnalyzer()
 clusters = analyzer.find_optimal_clusters()
+```
 
-##Real-time Monitoring
+## Real-time Monitoring
 1. Live vessel tracking
 2. Delay prediction alerts
 3. Historical trends analysis
 4. Performance metrics dashboard
 
-###📊 Performance Metrics
+
 ## 📊 Performance Metrics
 
 | Metric              | Before V2 | After V2 |
@@ -105,25 +108,28 @@ python run_schedulers.py --cluster-optimized
 
 # Run analytics pipeline
 python -m src.analytics.ports_clusters --update-intervals
+```
 
-###⚙️ System Components
-##Core Modules
+## ⚙️ System Components
+## Core Modules
 ```bash 
 # Start main scheduler
 python run_schedulers.py --cluster-optimized
 
 # Run analytics pipeline
 python -m src.analytics.ports_clusters --update-intervals```
+```
 
-##Monitoring Tools
+## Monitoring Tools
 ```bash
 # Live scraping monitor
 python -m src.monitoring.scrape_dashboard
 
 # Database health check
 python -m src.database.healthcheck```
+```
 
-###🔄 Project Structure
+### 🔄 Project Structure
 
 .
 ├── src/
@@ -174,7 +180,7 @@ python -m src.database.healthcheck```
   - Trend analysis
   - Model performance monitoring
 
-### Implementation Phases
+## Implementation Phases
 1. **Phase 1**: Automation & Monitoring (Items 1-2)
    - Ensure system stability
    - Establish reliable metrics
@@ -194,28 +200,29 @@ python -m src.database.healthcheck```
    - Create comprehensive analytics dashboards
 
 ### Technical Stack Addition
-```python
-# Visualization and Dashboard
+
+- Visualization and Dashboard
 - Streamlit (interactive dashboards)
 - Plotly (interactive plots)
 - Matplotlib/Seaborn (static visualizations)
-
-###🤝 Contributing Guide
+`
+## 🤝 Contributing Guide
 While primarily a personal project, we welcome:
-    Bug reports via issues
-    Documentation improvements
-    Performance optimization suggestions
+- Bug reports via issues
+- Documentation improvements
+- Performance optimization suggestions
+
 Before contributing, please read our contribution guidelines.
 
-###⚠️ Legal Disclaimer
+## ⚠️ Legal Disclaimer
 This project demonstrates ethical web scraping best practices:
     Respects robots.txt rules
     Implements 2s delay between requests
     Uses public data only
     No authentication bypass attempts
 
-###📝 License
-MIT License
+## 📝 License
+### MIT License
 
 Copyright (c) 2024 Stavroula Kamini
 
