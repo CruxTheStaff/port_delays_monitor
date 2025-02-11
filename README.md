@@ -247,9 +247,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## 📬 Contact
-For inquiries about the maritime data analysis:
+## 📫 Contact & Support
+- LinkedIn: [Stavroula Kamini](https://www.linkedin.com/in/stavroula-kamini/)
+- Email: cruxthestaff@helicondata.com
+- GitHub Issues: For bug reports and feature requests
 
-LinkedIn: Stavroula Kamini
-
-Email: cruxthestaff@helicondata.com
+For inquiries about maritime data analysis and collaboration opportunities, feel free to reach out through any of the above channels.
