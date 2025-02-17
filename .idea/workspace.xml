@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88ce0d07-e3c8-4e68-99fa-6f672b608b55" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docs/calendar/main16022025.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +20,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="db_structure_split" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -37,10 +41,12 @@
     "Python tests.Python tests in test_scraper.py.executor": "Run",
     "Python.analyze_data.executor": "Run",
     "Python.csv_viewer.executor": "Run",
+    "Python.db_viewer.executor": "Run",
+    "Python.indexes.executor": "Run",
     "Python.port_scraper.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "db__structure__split",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/stkam/PycharmProjects/port_delays_monitor",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -83,11 +89,12 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/port_delays_monitor$port_traffic_analyzer.coverage" NAME="port_traffic_analyzer Coverage Results" MODIFIED="1739622495055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/analytics" />
     <SUITE FILE_PATH="coverage/port_delays_monitor$data_cleaner.coverage" NAME="data_cleaner Coverage Results" MODIFIED="1739132351035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/data_collection" />
-    <SUITE FILE_PATH="coverage/port_delays_monitor$db_viewer.coverage" NAME="db_viewer Coverage Results" MODIFIED="1739621701538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/database" />
+    <SUITE FILE_PATH="coverage/port_delays_monitor$db_viewer.coverage" NAME="db_viewer Coverage Results" MODIFIED="1739725950559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/database" />
+    <SUITE FILE_PATH="coverage/port_delays_monitor$indexes.coverage" NAME="indexes Coverage Results" MODIFIED="1739726285074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/database" />
     <SUITE FILE_PATH="coverage/port_delays_monitor$scheduler.coverage" NAME="scheduler Coverage Results" MODIFIED="1738794852465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/port_delays_monitor$ports_clusters2_py.coverage" NAME="ports_clusters2_py Coverage Results" MODIFIED="1739102875876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/analytics" />
-    <SUITE FILE_PATH="coverage/port_delays_monitor$clear_db.coverage" NAME="clear_db Coverage Results" MODIFIED="1738930846056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/database" />
     <SUITE FILE_PATH="coverage/port_delays_monitor$compare_databases.coverage" NAME="compare_databases Coverage Results" MODIFIED="1739649925067" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/port_delays_monitor$clear_db.coverage" NAME="clear_db Coverage Results" MODIFIED="1738930846056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/database" />
     <SUITE FILE_PATH="coverage/port_delays_monitor$expected_per_port.coverage" NAME="expected_per_port Coverage Results" MODIFIED="1739623291838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/port_delays_monitor$cluster_scheduler.coverage" NAME="cluster_scheduler Coverage Results" MODIFIED="1739104152817" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/scheduler" />
     <SUITE FILE_PATH="coverage/port_delays_monitor$populate_ports.coverage" NAME="populate_ports Coverage Results" MODIFIED="1739482186733" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/database" />
@@ -110,7 +117,7 @@
     <SUITE FILE_PATH="coverage/port_delays_monitor$port_scraper.coverage" NAME="port_scraper Coverage Results" MODIFIED="1739107627791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/scrapers" />
     <SUITE FILE_PATH="coverage/port_delays_monitor$csv_viewer.coverage" NAME="csv_viewer Coverage Results" MODIFIED="1738780813256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/data_collection" />
     <SUITE FILE_PATH="coverage/port_delays_monitor$ports_clusters.coverage" NAME="ports_clusters Coverage Results" MODIFIED="1739562065000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/analytics" />
-    <SUITE FILE_PATH="coverage/port_delays_monitor$scraping_scheduler.coverage" NAME="scraping_scheduler Coverage Results" MODIFIED="1739568054224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/scheduler" />
+    <SUITE FILE_PATH="coverage/port_delays_monitor$scraping_scheduler.coverage" NAME="scraping_scheduler Coverage Results" MODIFIED="1739673995156" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/scheduler" />
     <SUITE FILE_PATH="coverage/port_delays_monitor$root_test.coverage" NAME="root_test Coverage Results" MODIFIED="1738968236401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/port_delays_monitor$.coverage" NAME=" Coverage Results" MODIFIED="1739477319045" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/analytics" />
   </component>
